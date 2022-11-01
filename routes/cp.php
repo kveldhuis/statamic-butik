@@ -11,14 +11,14 @@ Route::namespace('\Jonassiewertsen\StatamicButik\Http\Controllers\CP')
     ->name('butik.')
     ->group(function () {
         Route::get('variants/from/{product}', 'VariantsController@from')
-        ->name('variants.from-product');
+            ->name('variants.from-product');
 
         Route::resource('variants', 'VariantsController')->only([
             'store', 'update', 'destroy',
         ]);
 
         Route::get('variants/{product}', 'VariantsController@from')
-        ->name('variants.index');
+            ->name('variants.index');
 
         Route::resource('orders', 'OrdersController')->only([
             'index', 'show',
@@ -34,17 +34,17 @@ Route::namespace('\Jonassiewertsen\StatamicButik\Http\Controllers\CP')
             ]);
 
             Route::get('categories/from/{product}', 'CategoriesController@from')
-            ->name('categories.from-product');
+                ->name('categories.from-product');
 
             Route::resource('categories', 'CategoriesController')->only([
                 'store', 'update', 'destroy',
             ]);
 
             Route::post('category/{category}/attach/{product}', 'CategoriesController@attachProduct')
-            ->name('category.attach-product');
+                ->name('category.attach-product');
 
             Route::delete('category/{category}/attach/{product}', 'CategoriesController@detachProduct')
-            ->name('category.detach-product');
+                ->name('category.detach-product');
 
             Route::resource('shipping', 'ShippingController')->only([
                 'index',
@@ -73,6 +73,9 @@ Route::namespace('\Jonassiewertsen\StatamicButik\Http\Controllers\CP')
         Route::prefix('api')->name('api.')->group(function () {
             Route::get('orders/get', 'Api\OrdersController@index')->name('orders.index');
             Route::post('orders/trackAndTrace/{order}', 'Api\OrdersController@setTrackAndTrace')->name('orders.trackAndTrace');
-            Route::post('orders/note/{order}', 'Api\OrdersController@setNote')->name('orders.setNote');
+        });
+
+        Route::prefix('orders')->name('orders.')->group(function () {
+            Route::get('order/packing-slip/{order}', 'OrdersController@generateAndOutputPackingSlip')->name('orders.packingSlip');
         });
     });

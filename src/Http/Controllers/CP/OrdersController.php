@@ -2,6 +2,7 @@
 
 namespace Jonassiewertsen\StatamicButik\Http\Controllers\CP;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use Jonassiewertsen\StatamicButik\Http\Controllers\CpController;
 use Jonassiewertsen\StatamicButik\Http\Models\Order;
 use Statamic\Facades\Scope;
@@ -49,5 +50,10 @@ class OrdersController extends CpController
                 'value' => $value,
             ];
         });
+    }
+
+    public function generateAndOutputPackingSlip(Order $order)
+    {
+        return Pdf::loadView('butik::cp.orders.pdf.packing-slip', $order)->download('packing-slip.pdf');
     }
 }
