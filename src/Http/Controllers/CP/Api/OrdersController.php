@@ -3,6 +3,8 @@
 namespace Jonassiewertsen\StatamicButik\Http\Controllers\CP\Api;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Jonassiewertsen\StatamicButik\Http\Models\Order;
 use Jonassiewertsen\StatamicButik\Http\Resources\OrderResource;
@@ -81,5 +83,25 @@ class OrdersController
         $orders = $orders->slice($offset, $perPage);
 
         return new LengthAwarePaginator($orders, $totalCount, $perPage, $currentPage);
+    }
+
+    public function setTrackAndTrace(Order $order, Request $request)
+    {
+        $trackAndTrace = $request->json('trackAndTrace');
+
+        $order->track_and_trace = $trackAndTrace;
+        $order->save();
+    }
+
+    public function setNote(Order $order, Request $request)
+    {
+        $note = $request->json('note');
+
+        $order->note = $note;
+        $order->save();
+
+        return new JsonResponse([
+            'saved' => 'success',
+        ]);
     }
 }

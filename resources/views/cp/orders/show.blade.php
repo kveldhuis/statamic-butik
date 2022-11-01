@@ -75,7 +75,7 @@
                 <th class="pl-2 py-1 w-1/4">{{ __('butik::cp.country_singular') }}</th>
                 <td>{{ $customer->country }}</td>
             </tr>
-             @foreach($additionalCustomerInformation as $information)
+            @foreach($additionalCustomerInformation as $information)
                 <tr>
                     <th class="pl-2 py-1 w-1/4">{{ $information['name']  }}</th>
                     <td>{{ $information['value'] }}</td>
@@ -111,6 +111,15 @@
                         <th class="pl-2 py-1 w-1/4">{{ __('butik::cp.total_amount') }}</th>
                         <td><strong>{{ currency() }} {{ $shipping->total }}</strong></td>
                     </tr>
+                    <tr>
+                        <th class="pl-2 py-1 w-1/4">Track & trace</th>
+                        <td>
+                            <track-and-trace id="{{ $order->id }}"
+                                             url="{{ route('statamic.cp.butik.api.orders.trackAndTrace', [$order->id]) }}"
+                                             value="{{ $order->track_and_trace }}"
+                            ></track-and-trace>
+                        </td>
+                    </tr>
                 </table>
             </div>
         @endforeach
@@ -141,6 +150,12 @@
             </table>
         </div>
     @endforeach
+
+    <h2 class="mt-4 font-bold text-xl">Notities</h2>
+    <div class="card p-0">
+        <notes value="{{ $order->note }}" id="{{ $order->id }}"
+               url="{{ route('statamic.cp.butik.api.orders.setNote', [$order->id]) }}"></notes>
+    </div>
 
     <span class="block text-2xs mt-4 mb-2">{{ __('butik::cp.all_informations_saved_from_buying_date') }}</span>
 @endsection

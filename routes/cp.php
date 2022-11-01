@@ -72,5 +72,7 @@ Route::namespace('\Jonassiewertsen\StatamicButik\Http\Controllers\CP')
         // API Resource Controller
         Route::prefix('api')->name('api.')->group(function () {
             Route::get('orders/get', 'Api\OrdersController@index')->name('orders.index');
+            Route::post('orders/trackAndTrace/{order}', 'Api\OrdersController@setTrackAndTrace')->name('orders.trackAndTrace');
+            Route::post('orders/note/{order}', 'Api\OrdersController@setNote')->name('orders.setNote');
         });
     });

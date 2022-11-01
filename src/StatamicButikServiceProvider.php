@@ -4,6 +4,7 @@ namespace Jonassiewertsen\StatamicButik;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
+use Jonassiewertsen\StatamicButik\Fieldtypes\TrackAndTrace;
 use Jonassiewertsen\StatamicButik\Filters\OrderStatus;
 use Jonassiewertsen\StatamicButik\Http\Models\Order;
 use Jonassiewertsen\StatamicButik\Http\Models\ShippingProfile;

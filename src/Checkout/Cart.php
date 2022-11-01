@@ -33,6 +33,8 @@ class Cart
             // Add new Item
             static::$cart->push(new Item($slug, $locale ?? locale()));
         }
+
+
         static::set(static::$cart);
     }
 

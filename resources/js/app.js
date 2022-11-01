@@ -15,6 +15,8 @@ import VariantsFieldtype from './fieldtypes/variantsFieldtype';
 
 import CreateButton from './partials/CreateButton';
 import PublishFormRedirect from './partials/PublishFormRedirect';
+import TrackAndTrace from './partials/TrackAndTrace';
+import Notes from './components/orders/Notes';
 
 Statamic.booting(() => {
     // Control Panel
@@ -35,4 +37,6 @@ Statamic.booting(() => {
     // Partials
     Statamic.$components.register('create-button', CreateButton);
     Statamic.$components.register('publish-form-redirect', PublishFormRedirect);
+    Statamic.$components.register('track-and-trace', TrackAndTrace);
+    Statamic.$components.register('notes', Notes);
 });
