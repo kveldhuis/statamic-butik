@@ -56,7 +56,7 @@
                         <template slot="actions" slot-scope="{ row: order, index }">
                             <dropdown-list>
                                 <dropdown-item :text="__('View')" :redirect="showUrl(order)" />
-                                <dropdown-item :text="__('Download pakbon')" :redirect="packingSlipUrl(order)" />
+                                <dropdown-item :text="__('Download pakbon')" :redirect="packingSlip(order)" />
                                 <data-list-inline-actions
                                     :item="order.id"
                                     :url="runActionUrl"
@@ -105,7 +105,8 @@ export default {
         showUrl(order) {
             return this.showRoute.replace('XXX', order.id)
         },
-        packingSlipUrl(order) {
+
+        packingSlip(order) {
             return this.packingSlipUrl.replace('XXX', order.id);
         }
     },

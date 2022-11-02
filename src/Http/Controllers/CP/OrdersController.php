@@ -55,6 +55,6 @@ class OrdersController extends CpController
     public function generateAndOutputPackingSlip(Order $order)
     {
         return Pdf::loadView('butik::cp.orders.pdf.packing-slip', ['order' => $order->toArray()])
-            ->stream('packing-slip.pdf');
+            ->download('packing-slip.pdf');
     }
 }

@@ -170,7 +170,7 @@
         @endphp
         <tr>
             <td class="sku">{{ $product->name }}</td>
-            <td class="sku">{{ $productEntry->article_number }}</td>
+            <td class="sku">{{ $productEntry?->article_number ?? '' }}</td>
             <td align="right" class="price">&euro; {{ $product->singlePrice }}</td>
             <td align="center">{{ $product->quantity }}</td>
             <td align="right" class="price">&euro;{{ $product->totalPrice }}</td>
