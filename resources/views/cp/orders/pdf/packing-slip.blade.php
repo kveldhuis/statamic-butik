@@ -3,17 +3,14 @@
 <head>
     <style>
         header {
-            width: 4in;
             display: block;
             margin-left: auto;
             margin-right: auto;
-            height: 1in;
         }
 
         body {
-            margin: 0in 0in 0in 0in;
-            width: 8.5in;
-            height: 11in;
+            size: A4;
+            margin: 0;
         }
 
         * {
@@ -52,9 +49,11 @@
 
         }
 
-        table.order-info tr td.label.first {}
+        table.order-info tr td.label.first {
+        }
 
-        table.order-info tr td.label.last {}
+        table.order-info tr td.label.last {
+        }
 
         table.line-items {
             margin-top: 0.1in;
@@ -65,8 +64,8 @@
             padding: 2px;
         }
 
-        table.footer {
-            border-top: solid 1px #707070;
+        table.line-items {
+            border-bottom: solid 1px #707070;
         }
 
         table.footer td.label {
@@ -85,25 +84,17 @@
         }
     </style>
 </head>
-
 <body>
 <!-- Order Header - THIS SECTION CAN BE MODIFIED AS NEEDED -->
-<header>
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/2907890/Incycle_Logo_flat.svg"><br>
+<header style="width:100%;text-align:center;">
+    <img src="https://spelkwartier.nl/images/logo%20icon%202.png" style="display:inline-block;margin: 0 auto; height: 210px; width: 120px;"><br>
 </header>
-<table cellspacing=0 cellpadding="2" border=0 style="width:8.5in">
-    <thead>
-    <tr>
-        <th colspan="3">
-            Packing Slip
-        </th>
-    </tr>
-    </thead>
+<table cellspacing=0 cellpadding="2" border=0>
     <tbody>
     <tr>
         <td colspan="2" style="width:4.5in" class="store-info">
-            <div class="company-name">Incycle Bicycles</div>
-            <div>133 S Eucla Ave.<br/>San Dimas, CA 91773</div>
+            <div class="company-name">{{ config('butik.name') }}</div>
+            <div>{{ config('butik.address1') }}<br/>{{ config('butik.zip_city') }}</div>
         </td>
         <td style="width:3.5in;" align="right" valign="top">
 
@@ -114,25 +105,25 @@
     </tr>
     <tr>
         <td align="right" style="width:1in">
-            <b>Ship To:</b>
+            <b>Vezenden naar:</b>
         </td>
         <td style="width:3.5in; font-size:14px">
-            <div>[Recipient Name]</div>
-            <div>[Recipient Address]</div>
+            <div>{{ sprintf('%s %s', $order['customer']->firstname, $order['customer']->surname) }}</div>
+            <div>{!! sprintf('%s <br />%s, %s', $order['customer']->address1, $order['customer']->zip, $order['customer']->city) !!}</div>
         </td>
         <td style="width:2.5in">
             <table cellspacing="0" border="0" class="order-info">
                 <tr>
                     <td align="right" class="label first">Order #</td>
-                    <td>[Order #]</td>
+                    <td>{{ $order['id'] }}</td>
                 </tr>
                 <tr>
-                    <td align="right" class="label">Date</td>
-                    <td>[Order Date]</td>
+                    <td align="right" class="label">Besteldatum</td>
+                    <td>{{ \Carbon\Carbon::parse($order['created_at'])->format('d-m-Y') }}</td>
                 </tr>
                 <tr>
-                    <td align="right" class="label last">Ship Date</td>
-                    <td>[Ship Date]</td>
+                    <td align="right" class="label last">Track & Trace</td>
+                    <td>{{ $order['track_and_trace'] ?? '' }}</td>
                 </tr>
             </table>
         </td>
@@ -146,25 +137,21 @@
     <thead>
 
     <!-- Order Items Header - THIS SECTION CAN BE MODIFIED AS NEEDED -->
-
     <tr>
         <th align="left" style="width:1.5in" class="sku">
-            Item
+            Productnaam
         </th>
         <th align="left" style="width:1.5in" class="sku">
-            Item SKU
-        </th>
-        <th align="left">
-            Item Details
+            Artikelcode
         </th>
         <th align="right" style="width:0.75in" class="price">
-            Price
+            Prijs
         </th>
         <th align="center" style="width:0.75in">
-            Qty
+            Aantal
         </th>
         <th align="right" style="width:0.75in" class="price">
-            Ext. Price
+            Totaal
         </th>
     </tr>
 
@@ -174,14 +161,21 @@
     <tbody>
 
     <!-- Order Items - THIS SECTION CAN BE MODIFIED AS NEEDED -->
-    <tr>
-        <td class="sku">[Item Title]</td>
-        <td class="sku">[Sku]</td>
-        <td>[Item Options]</td>
-        <td align="right" class="price">[Unit Price]</td>
-        <td align="center">[Quantity]</td>
-        <td align="right" class="price">[Extended Price]</td>
-    </tr>
+    @foreach ($order['items'] as $product)
+        @php
+            $productEntry = Statamic\Facades\Entry::query()
+                ->where('collection', 'products')
+                ->where('slug', $product->slug)
+                ->first();
+        @endphp
+        <tr>
+            <td class="sku">{{ $product->name }}</td>
+            <td class="sku">{{ $productEntry->article_number }}</td>
+            <td align="right" class="price">&euro; {{ $product->singlePrice }}</td>
+            <td align="center">{{ $product->quantity }}</td>
+            <td align="right" class="price">&euro;{{ $product->totalPrice }}</td>
+        </tr>
+    @endforeach
     <!-- END Order Items -->
 
     </tbody>
@@ -191,33 +185,45 @@
 
 <table cellspacing=0 cellpadding="2" border="0" style="width:100%" class="footer">
     <p>
-        [Notes to Buyer]
+{{--        [Notes to Buyer]--}}
     </p>
     <tbody>
     <tr>
         <td align="right" class="label price">
-            Sub Total:
+            Sub Totaal:
         </td>
-        <td style="width:0.75in" align="right" class="price">[Items Total]</td>
+        <td style="width:0.75in" align="right" class="price">
+            &euro;{{ array_reduce($order['items'], function ($subTotal, $item) {
+                return $subTotal + (float) str_replace(['.', ','], ['', '.'], $item->totalPrice);
+        }, 0) }}
+        </td>
     </tr>
     <tr>
     <tr class="tax">
         <td align="right" class="label price">
-            Tax:
+            Btw:
         </td>
-        <td style="width:0.75in" align="right" class="price">[Tax Paid]</td>
+        <td style="width:0.75in" align="right" class="price">
+            &euro;{{ array_reduce($order['items'], function ($subTotal, $item) {
+                return $subTotal + (float) str_replace(['.', ','], ['', '.'], $item->taxRate);
+        }, 0) }}
+        </td>
     </tr>
     <tr>
         <td align="right" class="label price">
-            Shipping:
+            Verzendkosten:
         </td>
-        <td style="width:0.75in" align="right" class="price">[Shipping Paid]</td>
+        <td style="width:0.75in" align="right" class="price">
+            &euro;{{ current($order['shippings'])->total }}
+        </td>
     </tr>
     <tr>
         <td align="right" class="label price">
             Total:
         </td>
-        <td style="width:0.75in" align="right" class="price">[Order Total]</td>
+        <td style="width:0.75in" align="right" class="price">
+            &euro; {{$order['total_amount']}}
+        </td>
     </tr>
     </tbody>
 </table>

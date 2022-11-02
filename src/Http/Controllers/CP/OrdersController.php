@@ -41,12 +41,12 @@ class OrdersController extends CpController
 
         return collect($customer)->filter(function ($value, $key) use ($defaultValues) {
             // Filtering if additinal values do exist.
-            return ! in_array($key, $defaultValues);
+            return !in_array($key, $defaultValues);
         })->map(function ($value, $key) {
             // Returning additional values with a converted name.
             // tax_id will become to Tax Id
             return [
-                'name'  => (string) Str::of($key)->replace('_', ' ')->title(),
+                'name' => (string)Str::of($key)->replace('_', ' ')->title(),
                 'value' => $value,
             ];
         });
@@ -54,6 +54,7 @@ class OrdersController extends CpController
 
     public function generateAndOutputPackingSlip(Order $order)
     {
-        return Pdf::loadView('butik::cp.orders.pdf.packing-slip', $order)->download('packing-slip.pdf');
+        return Pdf::loadView('butik::cp.orders.pdf.packing-slip', ['order' => $order->toArray()])
+            ->stream('packing-slip.pdf');
     }
 }

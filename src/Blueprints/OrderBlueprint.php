@@ -88,6 +88,22 @@ class OrderBlueprint extends Blueprint
                                 'display'  => __('butik::cp.completed_at'),
                             ],
                         ],
+                        [
+                            'handle' => 'track_and_trace',
+                            'field'  => [
+                                'type'     => 'text',
+                                'listable' => false,
+                                'display'  => __('butik::cp.track_and_trace'),
+                            ],
+                        ],
+                        [
+                            'handle' => 'note',
+                            'field'  => [
+                                'type'     => 'text',
+                                'listable' => false,
+                                'display'  => __('butik::cp.track_and_trace'),
+                            ],
+                        ],
                     ],
                 ],
             ],
