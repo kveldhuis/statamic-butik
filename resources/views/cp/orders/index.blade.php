@@ -13,6 +13,7 @@
         orders-request-url="{{ cp_route('butik.api.orders.index') }}"
         run-action-url="{{ cp_route('butik.actions.orders.run') }}"
         bulk-actions-url="{{ cp_route('butik.actions.orders.bulk') }}"
+        packing-slip-url="{{ cp_route('butik.orders.orders.packingSlip', 'XXX') }}"
         :filters="{{ json_encode($filters) }}"
         v-cloak
     >
