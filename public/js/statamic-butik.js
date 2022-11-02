@@ -1272,7 +1272,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(15);
-module.exports = __webpack_require__(88);
+module.exports = __webpack_require__(94);
 
 
 /***/ }),
@@ -1309,7 +1309,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__partials_PublishFormRedirect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__partials_PublishFormRedirect__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__partials_TrackAndTrace__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__partials_TrackAndTrace___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__partials_TrackAndTrace__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_orders_Notes__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_orders_Notes__ = __webpack_require__(88);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_orders_Notes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__components_orders_Notes__);
 
 
@@ -1758,6 +1758,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1765,7 +1766,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     props: {
         ordersRequestUrl: '',
-        showRoute: ''
+        showRoute: '',
+        packingSlipUrl: ''
     },
 
     data: function data() {
@@ -1780,6 +1782,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         showUrl: function showUrl(order) {
             return this.showRoute.replace('XXX', order.id);
+        },
+        packingSlip: function packingSlip(order) {
+            return this.packingSlipUrl.replace('XXX', order.id);
         }
     }
 });
@@ -1931,6 +1936,17 @@ var render = function() {
                                                   }
                                                 }),
                                                 _vm._v(" "),
+                                                _c("dropdown-item", {
+                                                  attrs: {
+                                                    text: _vm.__(
+                                                      "Download pakbon"
+                                                    ),
+                                                    redirect: _vm.packingSlip(
+                                                      order
+                                                    )
+                                                  }
+                                                }),
+                                                _vm._v(" "),
                                                 _c("data-list-inline-actions", {
                                                   attrs: {
                                                     item: order.id,
@@ -1978,7 +1994,7 @@ var render = function() {
               ],
               null,
               false,
-              3601896263
+              3367962064
             )
           })
         : _vm._e()
@@ -7068,27 +7084,14 @@ if (false) {
 
 /***/ }),
 /* 88 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(97)
+var __vue_script__ = __webpack_require__(89)
 /* template */
-var __vue_template__ = __webpack_require__(98)
+var __vue_template__ = __webpack_require__(93)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -7127,12 +7130,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 97 */
+/* 89 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
@@ -7216,93 +7219,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 });
 
 /***/ }),
-/* 98 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "px-5 py-2" }, [
-    _c("div", { staticClass: "text-right" }, [
-      _c(
-        "a",
-        {
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              _vm.editing = !_vm.editing
-            }
-          }
-        },
-        [_vm._v("Edit")]
-      )
-    ]),
-    _vm._v(" "),
-    _vm.editing == false
-      ? _c("div", [_c("p", [_vm._v(_vm._s(_vm.value))])])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.editing
-      ? _c("div", [
-          _c("textarea", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.value,
-                expression: "value"
-              }
-            ],
-            staticClass: "w-full border border-sky-500",
-            attrs: { rows: "20" },
-            domProps: { value: _vm.value },
-            on: {
-              input: [
-                function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.value = $event.target.value
-                },
-                function($event) {
-                  return _vm.updateValue($event.target.value)
-                }
-              ]
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "submit btn btn-default my-1",
-              on: { click: _vm.click }
-            },
-            [_vm._v("Opslaan")]
-          )
-        ])
-      : _vm._e()
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-616e397c", module.exports)
-  }
-}
-
-/***/ }),
-/* 99 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(100);
+module.exports = __webpack_require__(91);
 
 
 /***/ }),
-/* 100 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -7327,7 +7251,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(101);
+module.exports = __webpack_require__(92);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -7343,7 +7267,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 101 */
+/* 92 */
 /***/ (function(module, exports) {
 
 /**
@@ -8074,6 +7998,91 @@ if (hadRuntime) {
   (function() { return this })() || Function("return this")()
 );
 
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "px-5 py-2" }, [
+    _c("div", { staticClass: "text-right" }, [
+      _c(
+        "a",
+        {
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              _vm.editing = !_vm.editing
+            }
+          }
+        },
+        [_vm._v("Edit")]
+      )
+    ]),
+    _vm._v(" "),
+    _vm.editing == false
+      ? _c("div", [_c("p", [_vm._v(_vm._s(_vm.value))])])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.editing
+      ? _c("div", [
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.value,
+                expression: "value"
+              }
+            ],
+            staticClass: "w-full border border-sky-500",
+            attrs: { rows: "20" },
+            domProps: { value: _vm.value },
+            on: {
+              input: [
+                function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.value = $event.target.value
+                },
+                function($event) {
+                  return _vm.updateValue($event.target.value)
+                }
+              ]
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "submit btn btn-default my-1",
+              on: { click: _vm.click }
+            },
+            [_vm._v("Opslaan")]
+          )
+        ])
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-616e397c", module.exports)
+  }
+}
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
