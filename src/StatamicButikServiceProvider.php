@@ -81,7 +81,6 @@ class StatamicButikServiceProvider extends AddonServiceProvider
         \Jonassiewertsen\StatamicButik\Events\OrderPaid::class       => [
             \Jonassiewertsen\StatamicButik\Listeners\SendPurchaseConfirmationToCustomer::class,
             \Jonassiewertsen\StatamicButik\Listeners\SendPurchaseConfirmationToSeller::class,
-            \Jonassiewertsen\StatamicButik\Listeners\ReduceProductStock::class,
         ],
         \Jonassiewertsen\StatamicButik\Events\OrderAuthorized::class => [],
         \Jonassiewertsen\StatamicButik\Events\OrderCompleted::class  => [],
