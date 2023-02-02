@@ -94,6 +94,7 @@ export default {
         showRoute: '',
         packingSlipUrl: '',
         cancelOrderUrl: '',
+        archiveOrderUrl: '',
     },
 
     data() {
@@ -115,6 +116,10 @@ export default {
 
         cancelOrder(order) {
             return this.cancelOrderUrl.replace('XXX', order.id);
+        },
+
+        archiveOrder(order) {
+            return this.archiveOrderUrl.replace('XXX', order.id);
         }
     },
 }
