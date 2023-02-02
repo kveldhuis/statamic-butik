@@ -3,6 +3,7 @@
 namespace Jonassiewertsen\StatamicButik\Http\Controllers\CP;
 
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Redirect;
 use Jonassiewertsen\StatamicButik\Http\Controllers\CpController;
 use Jonassiewertsen\StatamicButik\Http\Models\Order;
 use Statamic\Facades\Scope;
@@ -56,5 +57,13 @@ class OrdersController extends CpController
     {
         return Pdf::loadView('butik::cp.orders.pdf.packing-slip', ['order' => $order->toArray()])
             ->download('packing-slip.pdf');
+    }
+
+    public function cancelOrder(Order $order)
+    {
+        $order->status = 'cancelled';
+        $order->save();
+
+        return Redirect::route('statamic.cp.butik.orders.index');
     }
 }

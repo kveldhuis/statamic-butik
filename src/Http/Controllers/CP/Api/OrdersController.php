@@ -90,6 +90,7 @@ class OrdersController
         $trackAndTrace = $request->json('trackAndTrace');
 
         $order->track_and_trace = $trackAndTrace;
+        $order->status = 'shipped';
         $order->save();
     }
 
