@@ -58,6 +58,7 @@
                                 <dropdown-item :text="__('View')" :redirect="showUrl(order)" />
                                 <dropdown-item :text="__('Download pakbon')" :redirect="packingSlip(order)" />
                                 <dropdown-item :text="__('Anuleer order')" :redirect="cancelOrder(order)" />
+                                <dropdown-item :text="__('Archiveer order')" :redirect="cancelOrder(order)" />
                                 <data-list-inline-actions
                                     :item="order.id"
                                     :url="runActionUrl"

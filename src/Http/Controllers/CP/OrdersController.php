@@ -66,4 +66,12 @@ class OrdersController extends CpController
 
         return Redirect::route('statamic.cp.butik.orders.index');
     }
+
+    public function archiveOrder(Order $order)
+    {
+        $order->status = 'archived';
+        $order->save();
+
+        return Redirect::route('statamic.cp.butik.orders.index');
+    }
 }

@@ -79,5 +79,6 @@ Route::namespace('\Jonassiewertsen\StatamicButik\Http\Controllers\CP')
         Route::prefix('orders')->name('orders.')->group(function () {
             Route::get('order/packing-slip/{order}', 'OrdersController@generateAndOutputPackingSlip')->name('orders.packingSlip');
             Route::get('order/cancel/{order}', 'OrdersController@cancelOrder')->name('orders.cancelOrder');
+            Route::get('order/archive/{order}', 'OrdersController@archiveOrder')->name('orders.archive');
         });
     });

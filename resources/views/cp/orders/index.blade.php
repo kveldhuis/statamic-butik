@@ -15,6 +15,7 @@
         bulk-actions-url="{{ cp_route('butik.actions.orders.bulk') }}"
         packing-slip-url="{{ cp_route('butik.orders.orders.packingSlip', 'XXX') }}"
         cancel-order-url="{{ cp_route('butik.orders.orders.cancelOrder', 'XXX') }}"
+        archive-order-url="{{ cp_route('butik.orders.orders.archive', 'XXX') }}"
         :filters="{{ json_encode($filters) }}"
         v-cloak
     >
